@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='UTF-8'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	<title>Price Optimization</title>
+</head>
+
+<br>
+<br>
+<body>
+	<div class='col-md-9 col-sm-9 ' style='margin:auto; margin-top:50px;'>
+		<h3>Material Price Optimization App</h3>
+		<br>
+		<form action='/predict' method='post'>
+			<div class='row'>
+			<div class='col-md-3'>
+				<div class='form-group'>
+					<label for=forGroupExampleInput'>Enter Material NO.</label>
+					<input type='number' name='Material' class='form-control'>
+				</div>
+			</div>
+			<br>
+			<div class='col-md-3'>
+				<div class='form-group'>
+					<label for='formGroupExampleInput'>Enter Valid to Date DDMMYYYY [EX: May 7 2022: 07052022])</label>
+					<input type='number' name='Valid_to' class='form-control'>
+				</div>
+			</div>
+			<br>
+			<div class='col-md-3'>
+				<div class='form-group'>
+				<label for='formGroupExampleInput'>Enter Valid From Date DDMMYYYY [EX: May 7 2022: 07052022]</label>
+				<input type='number' name='Valid_From' class='form-control'>
+				</div>
+			</div>
+			<br>
+			<div class='col-md-3'>
+				<div class='form-group'>
+				<label for='formGroupExampleInput'>Enter Process Status [If status is 'ES', enter 5]</label>
+				<input type='number' name='Proc_status' class='form-control'>
+				</div>
+			</div>
+			<br>
+			<div class='col-md-3'>
+				<div class='form-group'>
+				<label for='formGroupExampleInput'>Select Currency</label>
+				<select name='Unit' class='form-control'>
+					<option value='AUD'>Australian Dollar</option>
+					<option value='CAD'>Canadian Dollar</option>
+					<option value='DKK'>Danish Krone</option>
+					<option value='EUR'>European Euro</option>
+					<option value='HKD'>Hong Kong Dollar</option>
+					<option value='ILS'>Israeli New Shekel</option>
+					<option value='JPY'>Japanese Yen</option>
+					<option value='MYR'>Malaysian Ringgit</option>
+					<option value='MXN'>Mexican Peso</option>
+					<option value='NZD'>New Zealand Dollar</option>
+					<option value='GBP'>Pound Sterling</option>
+					<option value='SGD'>Singapore Dollar</option>
+					<option value='ZAR'>South African Rand</option>
+					<option value='KRW'>South Korean Won</option>
+					<option value='SEK'>Swedish Krona</option>
+					<option value='CHF'>Swiss Franc</option>
+					<option value='THB'>Thai Baht</option>
+					<option value='TWD'>New Taiwan Dollar</option>
+					<option value='USD'>US Dollar</option>
+				</select>
+				</div>
+			</div>
+			<br>
+			<div class='col-md-3'>
+				<div class='form-group'>
+				<label for='formGroupExampleInput'>Select ML Model</label>
+				<select name='Model_choice' class='form-control'>
+					<option value='dtr'>Decision Tree Regressor</option>
+					<option value='rfr'>Random Forest Regressor</option>
+`				</select>
+				</div>
+			</div>
+			<br>
+			<button type='submit' class='btn-btn-success'>Calculate Optimized Price</button>
+			<button type='button' onclick='reset()'>Reset</button>
+		</form>
+		
+		<script>
+			function reset(){
+				document.getElementByID('myForm').reset();
+			}
+		</script>
+		
+		<table class='table' style='width:75%'>
+			<thead>
+				<tr>
+					<th scope='col'>Result</th>
+					<br>
+					<th scope='col'>Model Accuracy</th>
+					<br>
+					<th scope='col'>RMSLE</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td >The optimized price for Material {{ material }} is {{ pred_conv }} {{ symbol }} from {{ valid_from }} to {{ valid_to }} with {{ selection }} Model</td>
+					<br>
+					<td >{{ model_accuracy }}%</td><br>
+					<br>
+					<td>{{ rmsle }}</td><br>
+				<tr>
+			</tbody>
+		</table>
+	</div>
+
+
+	
+	<style> 
+		body {
+			background-color: #1e90ff;
+			font-family: Shanti;
+			font-size: 1.2em;
+		}
+		
+		button {
+			border: None;
+		}
+	</style>
+</body>
+</html>
